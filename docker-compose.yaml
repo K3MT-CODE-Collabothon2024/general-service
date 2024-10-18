@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  postgres_container:
+    build:
+      context: ./docker/postgres/
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_DB: collabothon
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 12345
+    volumes:
+      - "C:/collabothon:/var/lib/postgresql/data"
+    ports:
+      - "5432:5432"
+
+  springboot_container:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres_container
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres_container:5432/collabothon
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 12345
+    ports:
+      - "8080:8080"
