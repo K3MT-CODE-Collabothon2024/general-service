@@ -27,13 +27,13 @@ CREATE TABLE assets
     type     VARCHAR(255) NOT NULL  -- Store asset type as ENUM
 );
 
--- Create 'customers_assets' table
+-- Create 'customers_assets' table with a composite primary key (customer_id, asset_id)
 CREATE TABLE customers_assets
 (
-    customer_asset_id SERIAL PRIMARY KEY,
-    customer_id       INTEGER REFERENCES customers (customer_id),
-    asset_id          INTEGER REFERENCES assets (asset_id),
-    amount            NUMERIC(12, 2)
+    customer_id INTEGER REFERENCES customers (customer_id),
+    asset_id    INTEGER REFERENCES assets (asset_id),
+    amount      NUMERIC(12, 2),
+    PRIMARY KEY (customer_id, asset_id)
 );
 
 -- Create 'due_tasks' table
