@@ -67,17 +67,18 @@ CREATE TABLE documents
     date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE customer_widgets
-(
-    customer_id INTEGER REFERENCES customers (customer_id),
-    widget_type_id INTEGER REFERENCES widget_types (widget_type_id),
-    position INTEGER
-);
-
 CREATE TABLE widget_types
 (
     widget_type_id SERIAL PRIMARY KEY,
     name TEXT NOT NULL
+);
+
+CREATE TABLE customer_widgets
+(
+    customer_id    INTEGER REFERENCES customers (customer_id),
+    widget_type_id INTEGER REFERENCES widget_types (widget_type_id),
+    position       INTEGER,
+    PRIMARY KEY (customer_id, widget_type_id)
 );
 
 -- Insert into 'customers' table (corporate clients)
