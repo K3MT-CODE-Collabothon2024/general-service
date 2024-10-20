@@ -12,4 +12,5 @@ public class CustomerDto {
     private LocalDateTime createdDate;
     private Integer score;
     private String companyName;
+    private Integer cash;
 }

@@ -28,10 +28,6 @@ public class CustomerEntity {
     @Column(name = "created_date", nullable = false)
     private LocalDateTime createdDate;
 
-    @Getter
-    @Setter
-    @Column(name = "score", nullable = false)
-    private Integer score;
 
     @Getter
     @Setter
@@ -43,4 +39,10 @@ public class CustomerEntity {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference
     private List<TaskEntity> tasks;
+
+    @Getter
+    @Setter
+    @Column(name = "cash", nullable = false)
+    private Integer cash;
+
 }

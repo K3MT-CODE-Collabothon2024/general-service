@@ -7,45 +7,17 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "due_tasks")
 @RequiredArgsConstructor
 public class TaskEntity {
+
     @Id
-    @Getter
-    @Setter
-    @Column(name = "task_id", nullable = false)
-    private Integer taskId;
-
-    @Getter
-    @Setter
-    @Column(name = "priority", nullable = false)
-    private Integer priority;
-
-    @Getter
-    @Setter
-    @Column(name = "description", columnDefinition = "text")
-    private String description;
-
-    @Getter
-    @Setter
-    @Column(name = "url", columnDefinition = "character varying")
-    private String url;
-
-    @Getter
-    @Setter
-    @Column(name = "state", columnDefinition = "character varying")
-    private String state;
-
-    @Getter
-    @Setter
-    @Column(name = "title", columnDefinition = "character varying")
-    private String title;
-
-    @Getter
-    @Setter
-    @Column(name = "category", columnDefinition = "character varying")
-    private String category;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_id")
+    private Long taskId;
 
     @ManyToOne
     @Getter
@@ -53,4 +25,39 @@ public class TaskEntity {
     @JoinColumn(name = "customer_id", nullable = false)
     @JsonBackReference
     private CustomerEntity customer;
+
+    @Getter
+    @Setter
+    @Column(name = "title", nullable = false, length = 255)
+    private String title;
+
+    @Getter
+    @Setter
+    @Column(name = "category", length = 100)
+    private String category;
+
+    @Getter
+    @Setter
+    @Column(name = "description")
+    private String description;
+
+    @Getter
+    @Setter
+    @Column(name = "url", length = 255)
+    private String url;
+
+    @Getter
+    @Setter
+    @Column(name = "priority")
+    private Integer priority;
+
+    @Getter
+    @Setter
+    @Column(name = "state", length = 255, nullable = false)
+    private String state;
+
+    @Getter
+    @Setter
+    @Column(name = "deadline")
+    private LocalDateTime deadline;
 }
