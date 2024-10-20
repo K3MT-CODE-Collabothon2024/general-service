@@ -1,8 +1,8 @@
 package com.collabothon2024.k3mt.k3mt.controller;
 
-import com.collabothon2024.k3mt.k3mt.dto.TaskDto;
-import com.collabothon2024.k3mt.k3mt.service.TaskService;
-import lombok.AllArgsConstructor;
+import com.collabothon2024.k3mt.k3mt.entity.EmailEntity;
+import com.collabothon2024.k3mt.k3mt.service.EmailService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,16 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/tasks")
-@AllArgsConstructor
+@RequiredArgsConstructor
+@RequestMapping("/email")
 @CrossOrigin
-public class TaskController {
+public class EmailController {
 
-    private TaskService taskService;
+    private final EmailService emailService;
 
     @GetMapping("/{customerId}")
-    public ResponseEntity<List<TaskDto>> getTasksByCustomerId(@PathVariable Integer customerId) {
-        return ResponseEntity.ok(taskService.getTasksByCustomerId(customerId));
+    public ResponseEntity<List<EmailEntity>> getEmails(@PathVariable Integer customerId) {
+        return ResponseEntity.ok(emailService.getEmailsByCustomerId(customerId));
     }
 
 }

@@ -42,6 +42,7 @@ CREATE TABLE due_tasks
 CREATE TABLE news
 (
     info_id     SERIAL PRIMARY KEY,
+    title       VARCHAR(255),
     customer_id INTEGER REFERENCES customers (customer_id),
     content     TEXT NOT NULL,
     date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -53,7 +54,8 @@ CREATE TABLE mails
     email_id SERIAL PRIMARY KEY,
     customer_id INTEGER REFERENCES customers (customer_id),
     date        TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    subject     VARCHAR(255) NOT NULL
+    subject     VARCHAR(255) NOT NULL,
+    sender     VARCHAR(255) NOT NULL
 );
 
 
@@ -150,15 +152,15 @@ VALUES
 INSERT INTO due_tasks (customer_id, title, category, description, url, priority, state, deadline)
 VALUES (1, 'Complete Financial Audit 2023', 'Compliance', 'Complete the annual financial audit for 2023.',
         'https://commerzbank.com/audit', 1, 'todo', '2024-12-15 12:00:00'),
-       (2, 'Submit Sustainability Report', 'Sustainability', 'Submit the company’s annual sustainability report.',
+       (1, 'Submit Sustainability Report', 'Sustainability', 'Submit the company’s annual sustainability report.',
         'https://commerzbank.com/sustainability', 2, 'in-progress', '2024-11-30 08:30:00'),
-       (3, 'Update Investment Portfolio', 'Investment', 'Review and update the current corporate investment portfolio.',
+       (1, 'Update Investment Portfolio', 'Investment', 'Review and update the current corporate investment portfolio.',
         'https://commerzbank.com/portfolio', 3, 'todo', '2024-11-30 10:45:00'),
-       (4, 'Review R&D Budget Allocation', 'Finance', 'Reevaluate the R&D budget for 2024.',
+       (1, 'Review R&D Budget Allocation', 'Finance', 'Reevaluate the R&D budget for 2024.',
         'https://commerzbank.com/rnd-budget', 2, 'todo', '2024-07-20 11:30:00'),
-       (5, 'Prepare for Marketing Campaign', 'Marketing', 'Prepare the global marketing campaign for Q1 2024.',
+       (1, 'Prepare for Marketing Campaign', 'Marketing', 'Prepare the global marketing campaign for Q1 2024.',
         'https://commerzbank.com/marketing-campaign', 2, 'todo', '2024-06-10 09:15:00'),
-       (6, 'Conduct Risk Assessment', 'Risk Management', 'Perform a corporate risk assessment for 2024.',
+       (1, 'Conduct Risk Assessment', 'Risk Management', 'Perform a corporate risk assessment for 2024.',
         'https://commerzbank.com/risk', 1, 'in-progress', '2024-05-05 14:45:00'),
        (7, 'EV Infrastructure Project Review', 'Sustainability', 'Review progress on the EV infrastructure expansion.',
         'https://commerzbank.com/ev-infrastructure', 3, 'todo', '2024-04-25 13:20:00'),
@@ -168,29 +170,48 @@ VALUES (1, 'Complete Financial Audit 2023', 'Compliance', 'Complete the annual f
         'https://commerzbank.com/green-tech', 1, 'in-progress', '2024-02-15 16:00:00');
 
 -- Insert into 'news' table (company-related news)
-INSERT INTO news (customer_id, content, date)
-VALUES (1, 'Zalando announces €100 million investment in logistics.', '2023-10-01 12:00:00'),
-       (2, 'Siemens reports record growth in renewable energy projects.', '2023-09-15 08:30:00'),
-       (3, 'Deutsche Bank launches new digital banking platform.', '2023-08-10 10:45:00'),
-       (4, 'BASF to invest €50 million in sustainable chemical solutions.', '2023-07-20 11:30:00'),
-       (5, 'Adidas unveils carbon-neutral product line for 2024.', '2023-06-10 09:15:00'),
-       (6, 'Allianz reports record profits for Q3 2023.', '2023-05-05 14:45:00'),
-       (7, 'BMW accelerates production of electric vehicles in Europe.', '2023-04-25 13:20:00'),
-       (8, 'Daimler expands electric bus production in North America.', '2023-03-30 15:50:00'),
-       (9, 'Volkswagen partners with leading battery suppliers for EVs.', '2023-02-15 16:00:00'),
-       (10, 'SAP announces new cloud solutions for enterprise automation.', '2023-01-10 08:00:00');
+INSERT INTO news (customer_id, title, content, date)
+VALUES (1, 'Commerzbank Achieves Record Profits in Q3 2023',
+        'Commerzbank reports record profits for the third quarter of 2023, driven by strong performance in investment banking and asset management.',
+        '2023-10-01 12:00:00'),
+       (1, 'Siemens Launches New Renewable Energy Projects',
+        'Siemens announces the launch of new renewable energy projects in Europe and Asia, focusing on wind and solar energy solutions.',
+        '2023-09-15 08:30:00'),
+       (1, 'Deutsche Bank Unveils Digital Banking Platform',
+        'Deutsche Bank introduces a new digital banking platform, offering customers enhanced online banking services and features.',
+        '2023-08-10 10:45:00'),
+       (4, 'BASF Invests in Sustainable Chemical Solutions',
+        'BASF invests in sustainable chemical solutions, aiming to reduce the environmental impact of its products and operations.',
+        '2023-07-20 11:30:00'),
+       (5, 'Adidas Announces Carbon-Neutral Product Line',
+        'Adidas unveils a new carbon-neutral product line, featuring sustainable materials and production processes to reduce carbon emissions.',
+        '2023-06-10 09:15:00'),
+       (6, 'Allianz Reports Record Profits for Q3 2023',
+        'Allianz reports record profits for the third quarter of 2023, driven by strong performance in insurance and asset management.',
+        '2023-05-05 14:45:00'),
+       (7, 'BMW Expands Electric Vehicle Production',
+        'BMW announces the expansion of its electric vehicle production capacity, with plans to introduce new EV models in the market.',
+        '2023-04-25 13:20:00'),
+       (8, 'Daimler Invests in Electric Bus Production',
+        'Daimler invests in electric bus production, aiming to increase the adoption of electric buses for sustainable urban transportation.',
+        '2023-03-30 15:50:00'),
+       (9, 'Volkswagen Partners with Battery Suppliers',
+        'Volkswagen announces a partnership with battery suppliers to secure a stable supply chain for electric vehicle production.',
+        '2023-02-15 16:00:00');
+
+
 
 
 -- Insert into 'mails' table (company-related emails) with date
-INSERT INTO mails (customer_id, subject, date)
-VALUES (1, 'Financial Report Q3 2023', '2023-10-01 12:00:00'),
-       (2, 'Renewable Energy Projects Update', '2023-09-15 08:30:00'),
-       (3, 'Digital Banking Platform Launch', '2023-08-10 10:45:00'),
-       (4, 'Sustainable Chemical Solutions Investment', '2023-07-20 11:30:00'),
-       (5, 'Carbon-Neutral Product Line Announcement', '2023-06-10 09:15:00'),
-       (6, 'Record Profits for Q3 2023', '2023-05-05 14:45:00'),
-       (7, 'Electric Vehicle Production Expansion', '2023-04-25 13:20:00'),
-       (8, 'Electric Bus Production Expansion', '2023-03-30 15:50:00'),
-       (9, 'Battery Suppliers Partnership Announcement', '2023-02-15 16:00:00'),
-       (10, 'Cloud Solutions for Enterprise Automation', '2023-01-10 08:00:00');
+INSERT INTO mails (customer_id, subject, date, sender)
+VALUES (1, 'Financial Report Q3 2023', '2023-10-01 12:00:00', 'example1@example.com'),
+       (1, 'Renewable Energy Projects Update', '2023-09-15 08:30:00', 'example2@example.com'),
+       (1, 'Digital Banking Platform Launch', '2023-08-10 10:45:00', 'example1@example.com'),
+       (1, 'Sustainable Chemical Solutions Investment', '2023-07-20 11:30:00', 'example4@example.com'),
+       (1, 'Carbon-Neutral Product Line Announcement', '2023-06-10 09:15:00', 'example1@example.com'),
+       (6, 'Record Profits for Q3 2023', '2023-05-05 14:45:00', 'example5@example.com'),
+       (7, 'Electric Vehicle Production Expansion', '2023-04-25 13:20:00', 'example8@example.com'),
+       (8, 'Electric Bus Production Expansion', '2023-03-30 15:50:00', 'example1@example.com'),
+       (9, 'Battery Suppliers Partnership Announcement', '2023-02-15 16:00:00', 'example1@example.com'),
+       (10, 'Cloud Solutions for Enterprise Automation', '2023-01-10 08:00:00', 'example1@example.com');
 

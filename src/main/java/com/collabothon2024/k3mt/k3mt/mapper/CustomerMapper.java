@@ -11,8 +11,8 @@ public class CustomerMapper {
         CustomerDto customerDto = new CustomerDto();
         customerDto.setCustomerId(customerEntity.getCustomerId());
         customerDto.setCompanyName(customerEntity.getCompanyName());
-        customerDto.setScore(customerEntity.getScore());
         customerDto.setCreatedDate(customerEntity.getCreatedDate());
+        customerDto.setCash(customerEntity.getCash());
         return customerDto;
     }
 
@@ -22,8 +22,8 @@ public class CustomerMapper {
         CustomerEntity customerEntity = new CustomerEntity();
         customerEntity.setCustomerId(customerDto.getCustomerId());
         customerEntity.setCompanyName(customerDto.getCompanyName());
-        customerEntity.setScore(customerDto.getScore());
         customerEntity.setCreatedDate(customerDto.getCreatedDate());
+        customerEntity.setCash(customerDto.getCash());
         return customerEntity;
     }
 }

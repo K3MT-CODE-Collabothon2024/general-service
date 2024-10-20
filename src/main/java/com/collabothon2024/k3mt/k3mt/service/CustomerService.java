@@ -16,12 +16,10 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
 
-    // create a function that controller would use to retrieve all customers
     public List<CustomerDto> getCustomers() {
-        List<CustomerDto> customerDtos = customerRepository.findAll().stream()
+        return customerRepository.findAll().stream()
                 .map(customerMapper::toDto)
                 .toList();
-        return customerDtos;
     }
 
 }

@@ -17,6 +17,7 @@ public class TaskMapper {
         taskDto.setState(taskEntity.getState());
         taskDto.setTitle(taskEntity.getTitle());
         taskDto.setCategory(taskEntity.getCategory());
+        taskDto.setDeadline(taskEntity.getDeadline());
         return taskDto;
     }
 
@@ -29,6 +30,7 @@ public class TaskMapper {
         taskEntity.setState(taskDto.getState());
         taskEntity.setTitle(taskDto.getTitle());
         taskEntity.setCategory(taskDto.getCategory());
+        taskEntity.setDeadline(taskDto.getDeadline());
         return taskEntity;
     }
 }
